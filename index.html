@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Ko'z sog'ligingizni asrang. 20-20-20 qoidasi asosida ishlab chiqilgan premium ilova.">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%230a84ff'/><circle cx='50' cy='50' r='20' fill='white'/></svg>">
+    <title>Ko'zParvarish Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- Ambient Background -->
+    <div class="ambient-bg"></div>
+    
+    <!-- Main Container -->
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">Teleshop | Eye 20-20-20</h1>
+                <button class="settings-btn" aria-label="Sozlamalar">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6m0 6v6M1 12h6m6 0h6"/>
+                        <path d="m4.93 4.93 4.24 4.24m5.66 5.66 4.24 4.24M4.93 19.07l4.24-4.24m5.66-5.66 4.24-4.24"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Home Screen -->
+            <section class="screen active" id="homeScreen">
+                
+                <!-- Timer Card -->
+                <div class="glass-card timer-card">
+                    <div class="timer-header">
+                        <h2 class="timer-title">20-20-20 Taymeri</h2>
+                        <div class="timer-status" id="timerStatus">Dam olish vaqti</div>
+                    </div>
+                    
+                    <!-- Circular Progress -->
+                    <div class="timer-visual">
+                        <svg class="progress-ring" width="280" height="280">
+                            <defs>
+                                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#0a84ff;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#5ac8fa;stop-opacity:1" />
+                                </linearGradient>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            <circle class="progress-ring-bg" cx="140" cy="140" r="120" />
+                            <circle class="progress-ring-circle" cx="140" cy="140" r="120" id="progressCircle"/>
+                        </svg>
+                        
+                        <div class="timer-center">
+                            <div class="timer-display" id="timerDisplay">20:00</div>
+                            <div class="timer-label" id="timerLabel">Ish rejimi</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timer Controls -->
+                    <div class="timer-controls">
+                        <button class="control-btn" id="resetBtn" aria-label="Qayta boshlash">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                                <path d="M21 3v5h-5"/>
+                            </svg>
+                        </button>
+                        
+                        <button class="primary-btn" id="startPauseBtn">
+                            <span class="btn-text">Boshlash</span>
+                            <svg class="btn-icon play-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            <svg class="btn-icon pause-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <rect x="6" y="4" width="4" height="16"/>
+                                <rect x="14" y="4" width="4" height="16"/>
+                            </svg>
+                        </button>
+                        
+                        <button class="control-btn" id="skipBtn" aria-label="O'tkazib yuborish">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 4l10 8-10 8V4z"/>
+                                <line x1="19" y1="5" x2="19" y2="19"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-item glass-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-value" id="todaySessions">0</div>
+                        <div class="stat-label">Bugungi seanslar</div>
+                    </div>
+                    <div class="stat-item glass-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-value" id="streakDays">0</div>
+                        <div class="stat-label">Ketma-ket kunlar</div>
+                    </div>
+                </div>
+
+                <!-- Action Cards -->
+                <div class="action-grid">
+                    <button class="action-card glass-card" data-screen="exercises">
+                        <div class="action-icon">👁️</div>
+                        <h3 class="action-title">Ko'z Mashqlari</h3>
+                        <p class="action-desc">7 ta professional mashq</p>
+                    </button>
+                    
+                    <button class="action-card glass-card" data-screen="nightMode">
+                        <div class="action-icon">🌙</div>
+                        <h3 class="action-title">Tungi Rejim</h3>
+                        <p class="action-desc">Ko'z uchun himoya</p>
+                    </button>
+                    
+                    <button class="action-card glass-card" data-screen="stats">
+                        <div class="action-icon">📊</div>
+                        <h3 class="action-title">Statistika</h3>
+                        <p class="action-desc">Taraqqiyotingiz</p>
+                    </button>
+                    
+                    <button class="action-card glass-card" id="focusBtn">
+                        <div class="action-icon">🎯</div>
+                        <h3 class="action-title">Fokus Rejimi</h3>
+                        <p class="action-desc">Minimal interfeys</p>
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- Exercises Screen -->
+            <section class="screen" id="exercisesScreen">
+                <div class="screen-header">
+                    <button class="back-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        <span>Orqaga</span>
+                    </button>
+                    <h2 class="screen-title">Ko'z Mashqlari</h2>
+                </div>
+
+                <div class="exercises-grid">
+                    <button class="exercise-card glass-card" data-exercise="blink">
+                        <div class="exercise-icon">😌</div>
+                        <h3 class="exercise-title">Sekin Miltillash</h3>
+                        <p class="exercise-duration">30 soniya</p>
+                    </button>
+                    
+                    <button class="exercise-card glass-card" data-exercise="rotate">
+                        <div class="exercise-icon">🔄</div>
+                        <h3 class="exercise-title">Ko'z Aylantirish</h3>
+                        <p class="exercise-duration">30 soniya</p>
+                    </button>
+                    
+                    <button class="exercise-card glass-card" data-exercise="focus">
+                        <div class="exercise-icon">🎯</div>
+                        <h3 class="exercise-title">Yaqin-Uzoq</h3>
+                        <p class="exercise-duration">30 soniya</p>
+                    </button>
+                    
+                    <button class="exercise-card glass-card" data-exercise="palming">
+                        <div class="exercise-icon">🙌</div>
+                        <h3 class="exercise-title">Palming</h3>
+                        <p class="exercise-duration">30 soniya</p>
+                    </button>
+                    
+                    <button class="exercise-card glass-card" data-exercise="figure8">
+                        <div class="exercise-icon">8️⃣</div>
+                        <h3 class="exercise-title">Sakkiz Shakli</h3>
+                        <p class="exercise-duration">30 soniya</p>
+                    </button>
+                    
+                    <button class="exercise-card glass-card" data-exercise="diagonal">
+                        <div class="exercise-icon">↗️</div>
+                        <h3 class="exercise-title">Diagonal Harakat</h3>
+                        <p class="exercise-duration">30 soniya</p>
+                    </button>
+                    
+                    <button class="exercise-card glass-card" data-exercise="rapid">
+                        <div class="exercise-icon">⚡</div>
+                        <h3 class="exercise-title">Tez Miltillash</h3>
+                        <p class="exercise-duration">30 soniya</p>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Night Mode Screen -->
+            <section class="screen" id="nightModeScreen">
+                <div class="screen-header">
+                    <button class="back-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        <span>Orqaga</span>
+                    </button>
+                    <h2 class="screen-title">Tungi Himoya</h2>
+                </div>
+
+                <div class="night-mode-content">
+                    <div class="glass-card night-card">
+                        <div class="night-visual">
+                            <div class="moon-icon">🌙</div>
+                            <p class="night-desc">Ko'k nurni kamaytirish va yorug'likni boshqarish orqali ko'zlaringizni himoya qiling</p>
+                        </div>
+
+                        <div class="night-controls">
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <span>Tungi Rejim</span>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="nightModeToggle">
+                                        <span class="toggle-slider"></span>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <span>Issiqlik</span>
+                                    <span class="control-value" id="warmthValue">50%</span>
+                                </label>
+                                <input type="range" class="slider" id="warmthSlider" min="0" max="100" value="50">
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <span>Yorug'lik</span>
+                                    <span class="control-value" id="brightnessValue">80%</span>
+                                </label>
+                                <input type="range" class="slider" id="brightnessSlider" min="20" max="100" value="80">
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <span>Avtomatik Faollashtirish</span>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="autoNightToggle">
+                                        <span class="toggle-slider"></span>
+                                    </div>
+                                </label>
+                                <p class="control-hint">Kechqurun 20:00 dan boshlab</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Screen -->
+            <section class="screen" id="statsScreen">
+                <div class="screen-header">
+                    <button class="back-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        <span>Orqaga</span>
+                    </button>
+                    <h2 class="screen-title">Statistika</h2>
+                </div>
+
+                <div class="stats-content">
+                    <!-- Overview -->
+                    <div class="glass-card stats-overview">
+                        <h3 class="stats-section-title">Umumiy Ko'rsatkichlar</h3>
+                        <div class="overview-grid">
+                            <div class="overview-item">
+                                <div class="overview-value" id="totalSessions">0</div>
+                                <div class="overview-label">Jami Seanslar</div>
+                            </div>
+                            <div class="overview-item">
+                                <div class="overview-value" id="totalMinutes">0</div>
+                                <div class="overview-label">Daqiqa Ishlandi</div>
+                            </div>
+                            <div class="overview-item">
+                                <div class="overview-value" id="healthScore">0%</div>
+                                <div class="overview-label">Sog'liq Reytingi</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weekly Chart -->
+                    <div class="glass-card weekly-chart">
+                        <h3 class="stats-section-title">Haftalik Faoliyat</h3>
+                        <div class="chart-container">
+                            <div class="chart-bars" id="weeklyChart">
+                                <div class="chart-bar" data-day="Du" style="--height: 0%">
+                                    <div class="bar-fill"></div>
+                                    <div class="bar-label">Du</div>
+                                </div>
+                                <div class="chart-bar" data-day="Se" style="--height: 0%">
+                                    <div class="bar-fill"></div>
+                                    <div class="bar-label">Se</div>
+                                </div>
+                                <div class="chart-bar" data-day="Cho" style="--height: 0%">
+                                    <div class="bar-fill"></div>
+                                    <div class="bar-label">Cho</div>
+                                </div>
+                                <div class="chart-bar" data-day="Pay" style="--height: 0%">
+                                    <div class="bar-fill"></div>
+                                    <div class="bar-label">Pay</div>
+                                </div>
+                                <div class="chart-bar" data-day="Jum" style="--height: 0%">
+                                    <div class="bar-fill"></div>
+                                    <div class="bar-label">Jum</div>
+                                </div>
+                                <div class="chart-bar" data-day="Sha" style="--height: 0%">
+                                    <div class="bar-fill"></div>
+                                    <div class="bar-label">Sha</div>
+                                </div>
+                                <div class="chart-bar" data-day="Yak" style="--height: 0%">
+                                    <div class="bar-fill"></div>
+                                    <div class="bar-label">Yak</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achievements -->
+                    <div class="glass-card achievements">
+                        <h3 class="stats-section-title">Yutuqlar</h3>
+                        <div class="achievement-list">
+                            <div class="achievement-item locked" id="achievement1">
+                                <div class="achievement-icon">🌱</div>
+                                <div class="achievement-info">
+                                    <div class="achievement-title">Birinchi Qadam</div>
+                                    <div class="achievement-desc">1 ta seans yakunlang</div>
+                                </div>
+                            </div>
+                            <div class="achievement-item locked" id="achievement2">
+                                <div class="achievement-icon">🔥</div>
+                                <div class="achievement-info">
+                                    <div class="achievement-title">Izchil</div>
+                                    <div class="achievement-desc">3 kun ketma-ket</div>
+                                </div>
+                            </div>
+                            <div class="achievement-item locked" id="achievement3">
+                                <div class="achievement-icon">⭐</div>
+                                <div class="achievement-info">
+                                    <div class="achievement-title">Professional</div>
+                                    <div class="achievement-desc">50 ta seans</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav glass-card">
+            <button class="nav-item active" data-screen="home">
+                <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <span class="nav-label">Asosiy</span>
+            </button>
+            
+            <button class="nav-item" data-screen="exercises">
+                <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <circle cx="12" cy="12" r="10"/>
+                </svg>
+                <span class="nav-label">Mashqlar</span>
+            </button>
+            
+            <button class="nav-item" data-screen="nightMode">
+                <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+                <span class="nav-label">Tungi</span>
+            </button>
+            
+            <button class="nav-item" data-screen="stats">
+                <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10"/>
+                    <line x1="12" y1="20" x2="12" y2="4"/>
+                    <line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+                <span class="nav-label">Statistika</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <!-- Exercise Modal -->
+    <div class="modal" id="exerciseModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content glass-card">
+            <button class="modal-close" id="closeExercise">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            
+            <div class="exercise-modal-content">
+                <div class="exercise-animation" id="exerciseAnimation"></div>
+                <h3 class="exercise-modal-title" id="exerciseModalTitle">Mashq</h3>
+                <p class="exercise-instructions" id="exerciseInstructions"></p>
+                
+                <div class="exercise-timer">
+                    <svg class="exercise-progress-ring" width="200" height="200">
+                        <circle class="exercise-progress-bg" cx="100" cy="100" r="90"/>
+                        <circle class="exercise-progress-circle" cx="100" cy="100" r="90" id="exerciseProgressCircle"/>
+                    </svg>
+                    <div class="exercise-time" id="exerciseTime">30</div>
+                </div>
+                
+                <button class="primary-btn" id="startExercise">Boshlash</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Focus Mode -->
+    <div class="focus-mode" id="focusMode">
+        <button class="focus-exit" id="exitFocus">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+        
+        <div class="focus-content">
+            <div class="breathing-circle"></div>
+            <div class="focus-timer" id="focusTimer">20:00</div>
+            <div class="focus-label" id="focusLabel">Chuqur nafas oling</div>
+        </div>
+    </div>
+
+    <!-- Notification Popup -->
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <div class="notification-icon">👁️</div>
+            <div class="notification-text">
+                <div class="notification-title" id="notificationTitle">Dam olish vaqti!</div>
+                <div class="notification-message" id="notificationMessage">20 soniya 6 metr uzoqlikka qarang</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content glass-card">
+            <button class="modal-close" id="closeSettings">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            
+            <h3 class="modal-title">Sozlamalar</h3>
+            
+            <div class="settings-list">
+                <div class="setting-item">
+                    <label class="control-label">
+                        <span>Ish vaqti (daqiqa)</span>
+                        <input type="number" class="setting-input" id="workDuration" min="1" max="60" value="20">
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <label class="control-label">
+                        <span>Dam olish vaqti (soniya)</span>
+                        <input type="number" class="setting-input" id="breakDuration" min="10" max="60" value="20">
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <label class="control-label">
+                        <span>Ovozli eslatma</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="soundToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <label class="control-label">
+                        <span>Bildirishnomalar</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="notificationToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="primary-btn" id="saveSettings">Saqlash</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
